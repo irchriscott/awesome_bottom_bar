@@ -18,6 +18,7 @@ class BottomBarCreative extends StatefulWidget {
 
   /// item
   final int indexSelected;
+  final bool enableClickSelected;
   final Function(int index)? onTap;
 
   final Color color;
@@ -59,6 +60,7 @@ class BottomBarCreative extends StatefulWidget {
     this.bottom = 12,
     this.pad = 4,
     this.enableShadow = true,
+    this.enableClickSelected = false
   }) : super(
           key: key,
         );
@@ -132,7 +134,7 @@ class _BottomBarCreativeState extends State<BottomBarCreative> {
                     padding: padTop,
                     child: InkWell(
                       key: ValueKey(value),
-                      onTap: index != widget.indexSelected ? () => widget.onTap?.call(index) : null,
+                      onTap: index != widget.indexSelected || widget.enableClickSelected ? () => widget.onTap?.call(index) : null,
                       child: widget.items.length > index
                           ? buildItem(
                         context,
