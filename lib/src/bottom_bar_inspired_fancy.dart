@@ -243,23 +243,19 @@ class _BottomBarInspiredFancyState extends State<BottomBarInspiredFancy> with Ti
                   return Expanded(
                     child: InkWell(
                       key: Key(value),
-                      onTap: index != _selectedIndex
-                          ? () {
-                              if (index != _selectedIndex) {
-                                widget.onTap!.call(index);
-                                if (widget.onTap == null) {
-                                  setState(() {
-                                    _lastSelectedIndex = _selectedIndex;
-                                    _selectedIndex = index;
-                                  });
-                                  if (widget.animated) {
-                                    _animationControllerList[_selectedIndex].forward();
-                                    _animationControllerList[_lastSelectedIndex].reverse();
-                                  }
-                                }
-                              }
-                            }
-                          : null,
+                      onTap: () {
+                        widget.onTap!.call(index);
+                        if (widget.onTap == null) {
+                          setState(() {
+                            _lastSelectedIndex = _selectedIndex;
+                            _selectedIndex = index;
+                          });
+                          if (widget.animated) {
+                            _animationControllerList[_selectedIndex].forward();
+                            _animationControllerList[_lastSelectedIndex].reverse();
+                          }
+                        }
+                      },
                       child: widget.items.length > index
                           ? buildItem(
                               context,
